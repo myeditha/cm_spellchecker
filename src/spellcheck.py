@@ -44,12 +44,17 @@ class Spellchecker():
 
         dictionary = makeEnglishDict()
         minDist = len(word1) + 1
-        minWord = word1
+        minWords = []
+
         for word2 in dictionary:
+            word2 = word2.strip()
             dist = self.__levenshtein(word1,word2)
-            if(dist<minDist or (dist==minDist and len(word1)==len(word2))):
+            if dist<minDist :
+                minWords = [word2]
                 minDist = dist
-                minWord = word2
-        return minWord.rstrip()   
+            elif dist==minDist :
+                minWords.append(word2)
+
+        return minWords
         
     

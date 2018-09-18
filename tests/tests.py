@@ -27,8 +27,8 @@ def testWrapper():
 
 	def levenshteinSuggestionTests():
 		tests = []
-		tests.append(("ist", lambda i: i == "is"))
-		tests.append(("hlelo", lambda i: i == "heel"))
+		tests.append(("ist", lambda l: "is" in l))
+		tests.append(("hlelo", lambda l: "hello" in l))
 		return {
 			"function": spellchecker.levenshteinEditSuggestion,
 			"tests": tests, 

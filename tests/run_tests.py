@@ -24,7 +24,7 @@ def testFunction(test, func, num, verbose):
 	else:
 		if not test[1](res):
 			if verbose:
-				print("Failed test " + str(num+1) + ", " + func()["desc"] + ": on input " + repr(str(test[0])) + ", expected " + repr(str(test[1])) + " but received " + repr(str(res)))
+				print("Failed test " + str(num+1) + ", " + func()["desc"] + ": on input " + repr(str(test[0])) + ", received " + repr(str(res)))
 			return False
 		else:
 			if verbose:
