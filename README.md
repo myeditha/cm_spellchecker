@@ -2,6 +2,11 @@
 
 Hi! This is a repository for implementing spellchecking on code-mixed text, currently for Hindi and Telugu (but ideally more in the future!). This repository is part of a larger group of projects aiming to implement text normalization tools for researchers working with code-mixed text in indic languages.
 
+## Requirements
+
+- [pyenchant](https://github.com/rfk/pyenchant)
+- [fuzzy](https://pypi.org/project/Fuzzy/)
+
 ## Setup
 
 All source files are contained with the `src/` directory. Currently, the main spellchecker module (the vast majority of which still needs to be written) is wrapped in the `Spellchecker` class.
@@ -16,7 +21,7 @@ This may be streamlined down the line with a helpful command, but for right now 
 
 - Write function/feature in either `spellcheck.py` or a helper file
 - Test functionality of the new feature by writing a new test function in `tests.py` (see file for more details and examples).
-- Run `python run_tests.py` in the `tests/` directory.
+- Run `python -m cm_spellchecker/` in the same directory as `cm_spellchecker/`.
 
 ## Notes
 

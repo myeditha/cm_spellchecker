@@ -1,4 +1,4 @@
-from cm_spellchecker.src.spellcheck import *
+from ..src.spellcheck import *
 
 def testWrapper():
 

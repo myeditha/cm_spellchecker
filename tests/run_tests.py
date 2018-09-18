@@ -1,5 +1,5 @@
 import sys
-from tests import *
+from .tests import *
 
 class FailedTest(Exception):
 		pass
