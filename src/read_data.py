@@ -1,12 +1,12 @@
-def __readFilesAsList(dir):
+def __readFilesAsList(direc):
     dictionary = []
-    with open(dir) as f:
+    with open(direc) as f:
         dictionary = f.readlines()
     return dictionary
 
 def __retrieveDictionary(addr):
     return __readFilesAsList(addr)
 
-def makeEnglishDict(addr = "../lib/DICT.txt"):
+def makeEnglishDict(addr = "cm_spellchecker/data/DICT.txt"):
     return __retrieveDictionary(addr)
 

@@ -1,6 +1,6 @@
 import fuzzy
 import enchant
-from read_data import makeEnglishDict
+from .read_data import makeEnglishDict
 
 # This is for initial commits and organization. This will be refactored.
 

@@ -21,7 +21,8 @@ This may be streamlined down the line with a helpful command, but for right now 
 
 - Write function/feature in either `spellcheck.py` or a helper file
 - Test functionality of the new feature by writing a new test function in `tests.py` (see file for more details and examples).
-- Run `python -m cm_spellchecker/` in the same directory as `cm_spellchecker/`.
+- Run `python -m cm_spellchecker.tests.run_tests` in the same directory as `cm_spellchecker/`. 
+- If you would like to see more details about passed/failed tests, run `python -m cm_spellchecker.tests.run_tests -V`
 
 ## Notes
 

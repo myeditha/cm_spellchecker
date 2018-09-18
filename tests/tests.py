@@ -8,9 +8,11 @@ def testWrapper():
 
 	# Define tester functions here
 
+	# You can either directly check if the output is equivalent to a value ...
+
 	def levenshteinTests():
 		tests = []
-		tests.append((("hlelo","hello"), 2))
+		tests.append((("hlelo","hellol"), 2))
 		tests.append((("appel","apple"), 2))
 		tests.append((("ti","it"), 2))
 		tests.append((("app", "ape"),1))
@@ -21,22 +23,24 @@ def testWrapper():
 			"desc": "levenshtein"
 		}
 
+	# ... Or use a predicate function to determine if you pass the test.
+
 	def levenshteinSuggestionTests():
 		tests = []
-		tests.append(("ist", "its"))
-		tests.append(("hlelo", "hello"))
+		tests.append(("ist", lambda i: i == "is"))
+		tests.append(("hlelo", lambda i: i == "heel"))
 		return {
 			"function": spellchecker.levenshteinEditSuggestion,
 			"tests": tests, 
 			"desc": "edit suggestions"
 		}
 
-	#Append each of the tests you want to run here
+	# Append each of the tests you want to run here
 
 	def getTests():
 		tests = []
 		tests.append(levenshteinTests)
-		tests.append(levenshteinSuggestionTests)
+		# tests.append(levenshteinSuggestionTests)
 		return tests
 
 	return getTests()
