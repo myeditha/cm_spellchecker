@@ -9,6 +9,8 @@ Hi! This is a repository for implementing spellchecking on code-mixed text, curr
 
 ## Setup
 
+Project files are contained in the `spellcheck/` directory. The README file and testing harness are in the topmost directory.
+
 All source files are contained with the `src/` directory. Currently, the main spellchecker module (the vast majority of which still needs to be written) is wrapped in the `Spellchecker` class.
 
 All data is read in through `read_data.py` and all large files are in the `data/` directory. If this gets too big down the line, should most likely move to a new data repository.
@@ -21,8 +23,8 @@ This may be streamlined down the line with a helpful command, but for right now 
 
 - Write function/feature in either `spellcheck.py` or a helper file
 - Test functionality of the new feature by writing a new test function in `tests.py` (see file for more details and examples).
-- Run `python -m cm_spellchecker.tests.run_tests` in the same directory as `cm_spellchecker/`. 
-- If you would like to see more details about passed/failed tests, run `python -m cm_spellchecker.tests.run_tests -V`
+- Run `python harness.py` in the topmost directory
+- If you would like to see more details about passed/failed tests, run `python harness.py -V`
 
 ## Notes
 

@@ -31,7 +31,7 @@ def testFunction(test, func, num, verbose):
 				print("Passed test " + str(num+1) + ", " + func()["desc"])
 			return True
 
-def main():
+def runTests():
 	verbose = False 
 	if "-V" in sys.argv:
 		verbose = True
@@ -44,5 +44,3 @@ def main():
 				counter+=1
 		print("\nPassed " + str(counter) + " out of " + str(len(func()["tests"])) + " for " + func()["desc"] + "\n")
 	return
-
-main()
