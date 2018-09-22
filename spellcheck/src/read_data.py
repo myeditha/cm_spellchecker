@@ -7,6 +7,6 @@ def __readFilesAsList(direc):
 def __retrieveDictionary(addr):
     return __readFilesAsList(addr)
 
-def makeEnglishDict(addr = "cm_spellchecker/data/DICT.txt"):
+def makeEnglishDict(addr = "spellcheck/data/DICT.txt"):
     return __retrieveDictionary(addr)
 

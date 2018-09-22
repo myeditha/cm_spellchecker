@@ -26,6 +26,7 @@ def testWrapper():
 	# ... Or use a predicate function to determine if you pass the test.
 
 	def levenshteinSuggestionTests():
+		# WARNING: These tests are quite slow. 
 		tests = []
 		tests.append(("ist", lambda l: "is" in l))
 		tests.append(("hlelo", lambda l: "hello" in l))
@@ -40,7 +41,7 @@ def testWrapper():
 	def getTests():
 		tests = []
 		tests.append(levenshteinTests)
-		# tests.append(levenshteinSuggestionTests)
+		tests.append(levenshteinSuggestionTests)
 		return tests
 
 	return getTests()
