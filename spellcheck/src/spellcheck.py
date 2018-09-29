@@ -38,6 +38,10 @@ class Spellchecker():
     def calcLevenshteinDist(self,word1,word2):
         return self.__levenshtein(word1,word2)
 
+    def getSoundex(self, word):
+        sound = self.soundex(word)
+        
+
     def levenshteinEditSuggestion(self,word1):
         # The naive implementation - using levenshtein distance to 
         # compare to every word in dictionary
