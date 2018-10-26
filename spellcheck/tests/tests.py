@@ -4,7 +4,7 @@ def testWrapper():
 
 	# Define requisite classes up here
 
-	spellchecker = Spellchecker()
+	spellchecker = Spellchecker(False)
 
 	# Define tester functions here
 
@@ -12,11 +12,11 @@ def testWrapper():
 
 	def levenshteinTests():
 		tests = []
-		tests.append((("hlelo","hellol"), 2))
+		tests.append((("hellx","helix"), 1))
 		tests.append((("appel","apple"), 2))
 		tests.append((("ti","it"), 2))
 		tests.append((("app", "ape"),1))
-		tests.append((("app", "apply"),2))
+		tests.append((("apply", "app"),2))
 		return {
 			"function": spellchecker.calcLevenshteinDist,
 			"tests": tests,
@@ -36,12 +36,24 @@ def testWrapper():
 			"desc": "edit suggestions"
 		}
 
+	def levenshteinSuggestionTestsCap():
+		tests = []
+		tests.append((("ist",2), lambda l: "is" in list(map(lambda x: x[1], l))))
+		tests.append((("hlelo",2), lambda l: "hello" in list(map(lambda x: x[1], l))))
+		tests.append((("abacas",1), lambda l: "abacus" in list(map(lambda x: x[1], l))))
+		return {
+			"function": spellchecker.levenshteinEditSuggestionCap,
+			"tests": tests, 
+			"desc": "edit suggestions"
+		}
+
 	# Append each of the tests you want to run here
 
 	def getTests():
 		tests = []
 		tests.append(levenshteinTests)
-		tests.append(levenshteinSuggestionTests)
+		# tests.append(levenshteinSuggestionTests)
+		tests.append(levenshteinSuggestionTestsCap)
 		return tests
 
 	return getTests()

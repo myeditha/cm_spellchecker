@@ -1,16 +1,23 @@
-import fuzzy
+import metaphone
+import pybktree
 import enchant
-from .read_data import makeEnglishDict
+from .read_data import *
 
 # This is for initial commits and organization. This will be refactored.
 
 class Spellchecker(): 
 
-    def __init__(self):
-        self.soundex = fuzzy.Soundex(4)
+    def __init__(self, repklEng, aggressiveness, outputType, altPath):
+        self.dmeta = metaphone.dm
         self.en = enchant.Dict('en-us')
+        self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
+        self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
+        self.metaphones = makeMetaDict("spellcheck/data/telugu3rawaug.txt")
 
-    def __levenshtein(self,word1, word2):
+    def __levenshtein(self,word1,word2):
+        if len(word1) < len(word2):
+            return self.__levenshtein(word2, word1)
+
         v0 = [0] * (len(word2)+1)
         v1 = [0] * (len(word2)+1)
 
@@ -21,13 +28,13 @@ class Spellchecker():
             v1[0] = i + 1
 
             for j in range(0,len(word2)):
-                cost = 0
+                deletioncost = v0[j+1] + 1
+                insertioncost = v1[j] + 1
+                substitutioncost = v0[j] + 1
                 if(word1[i]==word2[j]):
-                    cost = 0
-                else:
-                    cost = 1
-                v1[j + 1] = min([v1[j] + 1, v0[j + 1] + 1, v0[j] + cost])
-        
+                    substitutioncost = v0[j]
+                v1[j + 1] = min([deletioncost, insertioncost, substitutioncost])
+    
             for j in range(0,len(v0)):
                 v0[j] = v1[j]
 
@@ -38,8 +45,8 @@ class Spellchecker():
     def calcLevenshteinDist(self,word1,word2):
         return self.__levenshtein(word1,word2)
 
-    def getSoundex(self, word):
-        sound = self.soundex(word)
+    def getMetaphone(self, word):
+        sound = self.dmeta(word)
         
 
     def levenshteinEditSuggestion(self,word1):
@@ -60,5 +67,13 @@ class Spellchecker():
                 minWords.append(word2)
 
         return minWords
+
+
+    def levenshteinEditSuggestionCap(self,word1,cap):
+        # The bktree-based suggestion function
+
+        distances = self.dictionary.find(word1,cap)
+
+        return distances
         
     
