@@ -37,8 +37,9 @@ def makeMetaDict(addr = "spellcheck/data/DICT.txt"):
 def readFileAsDict(direc):
     dictionary = dict()
     with open(direc) as f:
-        line = f.readline()
-        line.split(' ')
-        dictionary[line[0]] = line[1]
+        lines = f.readlines()
+        for line in lines:
+            line = line[:-1].split(' ')
+            dictionary[line[0]] = line[1]
     return dictionary
 

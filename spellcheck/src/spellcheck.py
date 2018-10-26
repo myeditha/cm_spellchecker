@@ -14,6 +14,20 @@ class Spellchecker():
         self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
         self.metaphones = makeMetaDict("spellcheck/data/telugu3rawaug.txt")
 
+    def correctSentence(self, sentence):
+        wordarr = sentence.split(" ")
+        newsentence = []
+        for word in wordarr:
+            wordplustag = word.split("\\")
+            myword = wordplustag[0]
+            tag = wordplustag[1]
+            if tag=="English":
+                newword = self.levenshteinEditSuggestionCap(myword, 1)[0][1]
+            else:
+                newword = self.getMetaphone(myword)
+            newsentence.append(newword)
+        return ' '.join(newsentence)
+
     def __levenshtein(self,word1,word2):
         if len(word1) < len(word2):
             return self.__levenshtein(word2, word1)
@@ -47,6 +61,10 @@ class Spellchecker():
 
     def getMetaphone(self, word):
         sound = self.dmeta(word)
+        if sound in self.metaphones:
+            return self.metaphones[sound]
+        else:
+            return word
         
 
     def levenshteinEditSuggestion(self,word1):
