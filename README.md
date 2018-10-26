@@ -24,7 +24,13 @@ This may be streamlined down the line with a helpful command, but for right now 
 - Write function/feature in either `spellcheck.py` or a helper file
 - Test functionality of the new feature by writing a new test function in `tests.py` (see file for more details and examples).
 - Run `python harness.py` in the topmost directory
-- If you would like to see more details about passed/failed tests, run `python harness.py -V`
+- If you would like to see more details about passed/failed tests, run `python harness.py -V
+
+## Commands
+
+Command: `python main.py test.txt -A 1 -outputType firstOf -langTag tel`
+
+If you want to know more about each option, just do `python main.py -h`
 
 ## Notes
 
