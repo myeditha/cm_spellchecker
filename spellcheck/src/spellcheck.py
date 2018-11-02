@@ -1,6 +1,5 @@
 import metaphone
 import pybktree
-import enchant
 from .read_data import *
 
 # This is for initial commits and organization. This will be refactored.
@@ -9,10 +8,10 @@ class Spellchecker():
 
     def __init__(self, repklEng, aggressiveness, outputType, altPath):
         self.dmeta = metaphone.dm
-        self.en = enchant.Dict('en-us')
+        self.en = makeEnglishDict()
         self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
         self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
-        self.metaphones = makeMetaDict("spellcheck/data/telugu3rawaug.txt")
+        self.metaphones = makeMetaDict("spellcheck/data/teluguraw.txt")
 
     def correctSentence(self, sentence):
         wordarr = sentence.split(" ")

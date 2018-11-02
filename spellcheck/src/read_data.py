@@ -12,7 +12,7 @@ def __retrieveDictionary(addr):
     return __readFilesAsList(addr)
 
 def makeEnglishDict(addr = "spellcheck/data/DICT.txt"):
-    return __retrieveDictionary(addr)
+    return readFileAsDict2(addr)
 
 def makeBkTree(func, addr = "spellcheck/data/DICT.txt"):
     return pybktree.BKTree(func, __readFilesAsList(addr))
@@ -33,6 +33,15 @@ def makeBkTreeFromPkl(func, repkl, addr = "spellcheck/data/bktree.pkl"):
 
 def makeMetaDict(addr = "spellcheck/data/DICT.txt"):
     return readFileAsDict(addr)
+
+def readFileAsDict2(direc):
+    dictionary = dict()
+    with open(direc) as f:
+        lines = f.readlines()
+        for line in lines:
+            line = line[:-1].lower()
+            dictionary[line] = 1
+    return dictionary
 
 def readFileAsDict(direc):
     dictionary = dict()

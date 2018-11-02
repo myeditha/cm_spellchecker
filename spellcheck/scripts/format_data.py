@@ -1,5 +1,4 @@
 import json
-import enchant
 import string
 import fuzzy
 import metaphone
@@ -7,10 +6,6 @@ import re
 import operator
 import random
 from functools import reduce
-
-def isEnglish(word):
-    enchanted = enchant.Dict('en-US')
-    return enchanted.check(word)
 
 def read_sm():
     print("loading social media corpus")
@@ -24,7 +19,7 @@ def read_sm():
 
     return worddict
 
-def cleanse(stri, smwords):
+def cleanse(stri, smwords, engdict):
     stri = stri.encode('utf-8')
     # textarr = [x.strip(string.punctuation) for x in stri.split()]
     regex = b"[\w']+"
@@ -35,9 +30,9 @@ def cleanse(stri, smwords):
         word2 = word.decode('utf-8')
         if word == b"" or b".com" in word or any(char.isdigit() for char in word2) or (word2 in smwords) or b"_" in word:
             continue
-        isenglish = isEnglish(word2)
+        isenglish = word2 in engdict
         if not isenglish:
-            print(word)
+            print(word2)
         words.append((word, isenglish))
     return words
 
@@ -66,11 +61,22 @@ def create_soundex_dict(nlines):
 def cleanse_string(lines, smwords):
     mapped = []
     counter = 0
+    engdict = dict()
+    print("loading dictionary")
+    with open("../data/DICT.txt") as f:
+        mlines = f.readlines()
+        for line in mlines:
+            line = line[:-1].lower()
+            engdict[line] = 1
+
     print("cleaning string")
+
     for x in lines:
         if(counter % 100 == 0):
             print("Preprocessing sentence " + str(counter))
-        mapped.append(cleanse(json.loads(x)["content"], smwords))
+        retval = cleanse(json.loads(x)["content"], smwords, engdict)
+        # print(retval)
+        mapped.extend(retval)
         counter+=1
     return mapped
 
@@ -92,8 +98,10 @@ def main():
         mapped = []
         counter = 0
         mapped = cleanse_string(lines, smwords)
-        mapped = reduce(operator.add, mapped)
-        nlines = map(lambda x: x[0], filter(lambda x: not x[1], mapped))
+        # mapped = reduce(operator.add, mapped)
+        # print(mapped)
+        print("filtering...")
+        nlines = map(lambda x: x[0], list(filter(lambda x: not x[1], mapped)))
 
         mydict = create_soundex_dict(nlines)
         newdict = grab_max_lines(mydict)

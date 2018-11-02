@@ -37,9 +37,9 @@ def levenshtein(word1,word2):
     return v1[len(word2)]
 
 def main2():
-    spellchecker = Spellchecker(False)
+    spellchecker = Spellchecker(False, 1, "f", "")
     dmeta = metaphone.dm
-    with open("spellcheck/data/telugu3raw.txt", "r") as f:
+    with open("spellcheck/data/teluguraw.txt", "r") as f:
         lines = f.readlines()
         newlines = []
         counter = 0

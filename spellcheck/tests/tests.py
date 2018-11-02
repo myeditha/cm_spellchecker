@@ -4,7 +4,7 @@ def testWrapper():
 
 	# Define requisite classes up here
 
-	spellchecker = Spellchecker(False)
+	spellchecker = Spellchecker(False, 1, "f", "../data/teluguwords.txt")
 
 	# Define tester functions here
 
@@ -40,7 +40,7 @@ def testWrapper():
 		tests = []
 		tests.append((("ist",2), lambda l: "is" in list(map(lambda x: x[1], l))))
 		tests.append((("hlelo",2), lambda l: "hello" in list(map(lambda x: x[1], l))))
-		tests.append((("abacas",1), lambda l: "abacus" in list(map(lambda x: x[1], l))))
+		tests.append((("abacas",2), lambda l: "abacus" in list(map(lambda x: x[1], l))))
 		return {
 			"function": spellchecker.levenshteinEditSuggestionCap,
 			"tests": tests, 
