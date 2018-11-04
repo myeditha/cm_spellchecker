@@ -3,15 +3,19 @@ import pybktree
 from .read_data import *
 
 # This is for initial commits and organization. This will be refactored.
+spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+datapath = os.path.join(spellcheckpath,"data")
+bktreepath = os.path.join(datapath,"bktree.pkl")
+dictpath = os.path.join(datapath,"DICT.txt")
 
 class Spellchecker(): 
 
-    def __init__(self, repklEng, aggressiveness, outputType, altPath):
+    def __init__(self, repklEng=bktreepath, aggressiveness=1, outputType="firstOf", altPath=None):
         self.dmeta = metaphone.dm
         self.en = makeEnglishDict()
         self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
         self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
-        self.metaphones = makeMetaDict("spellcheck/data/teluguraw.txt")
+        self.metaphones = makeMetaDict(os.path.join(datapath,"teluguraw.txt"))
 
     def correctSentence(self, sentence):
         wordarr = sentence.split(" ")
@@ -35,7 +39,7 @@ class Spellchecker():
         v1 = [0] * (len(word2)+1)
 
         for i in range(0,len(word2)+1):
-            v0[i] = i;
+            v0[i] = i
 
         for i in range(0,len(word1)): 
             v1[0] = i + 1
