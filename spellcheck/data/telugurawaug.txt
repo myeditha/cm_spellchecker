@@ -64,7 +64,6 @@ PJP bjp
 PTMN pettamanu
 LFNSTL liveinstyle
 TPS https
- www
 ANTTMS indiatimes
 PLT bullodu
 SPLR sabyulaara
