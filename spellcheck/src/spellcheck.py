@@ -10,7 +10,7 @@ class Spellchecker():
         self.dmeta = metaphone.dm
         self.en = makeEnglishDict()
         self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
-        self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
+        # self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
         self.metaphones = makeMetaDict("spellcheck/data/teluguraw.txt")
 
     def correctSentence(self, sentence):
