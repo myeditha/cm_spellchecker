@@ -66,7 +66,6 @@ def create_soundex_dict(nlines):
     mydict = dict()
     for word in nlines:
         try:
-            word = word.decode('ascii', errors='ignore')
             sound = dmeta(word)[0]
             wordkey = word
         except UnicodeDecodeError:
