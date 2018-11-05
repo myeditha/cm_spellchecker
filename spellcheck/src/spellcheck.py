@@ -15,7 +15,7 @@ class Spellchecker():
         self.en = makeEnglishDict()
         self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
         self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
-        self.metaphones = makeMetaDict(os.path.join(datapath,"telugu3rawaug.txt"))
+        self.metaphones = makeMetaDict(os.path.join(datapath,"telugurawaug.txt"))
 
     def correctSentence(self, sentence):
         wordarr = sentence.split(" ")
