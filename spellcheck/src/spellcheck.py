@@ -3,22 +3,22 @@ import pybktree
 from .read_data import *
 
 # This is for initial commits and organization. This will be refactored.
-spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-datapath = os.path.join(spellcheckpath,"data")
+
 bktreepath = os.path.join(datapath,"bktree.pkl")
 engdictpath = os.path.join(datapath,"DICT.txt")
 
 class Spellchecker(): 
 
-    def __init__(self, langTag, repklEng=bktreepath, aggressiveness=1, outputType="firstOf", altPath=None, dictDoc=None):
+    def __init__(self, langTag, repklEng, repklAlt, aggressiveness=1, outputType="firstOf", altPath=None, dictDoc=None):
+        spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+        datapath = os.path.join(spellcheckpath,"data")
+        engbktreepath = os.path.join(datapath,"engbktree.pkl")
+        altbktreepath = os.path.join(datapath, langTag + "bktree.pkl")
         self.dmeta = metaphone.dm
-        self.en = makeEnglishDict(dictpath)
-        self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng, "eng", engdictpath)
+        self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, "eng", engdictpath, engbktreepath, repklEng)
         if(dictDoc):
-            self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng, langTag, )
-        else:
-            self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng, langTag)
-        self.metaphones = makeMetaDict(os.path.join(datapath,"telugurawaug.txt"))
+            self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, langTag, dictDoc, altbktreepath, repklAlt)
+        self.metaphones = makeMetaDict(dictDoc)
 
     def correctSentence(self, sentence):
         wordarr = sentence.split(" ")
@@ -30,7 +30,17 @@ class Spellchecker():
             if tag=="English":
                 newword = self.levenshteinEditSuggestionCap(myword, 1)[0][1]
             else:
-                newword = self.getMetaphone(myword)
+                print(myword)
+                if(len(myword) < 4):
+                    suggestions = self.levenshteinEditSuggestionCap(myword, 2, False)
+                    print(suggestions)
+                    if(suggestions):
+                        newword = suggestions[0][1]
+                    else:
+                        newword = myword
+                    print(newword)
+                else:
+                    newword = self.getMetaphone(myword)
             newsentence.append(newword)
         return ' '.join(newsentence)
 
@@ -93,10 +103,12 @@ class Spellchecker():
         return minWords
 
 
-    def levenshteinEditSuggestionCap(self,word1,cap):
+    def levenshteinEditSuggestionCap(self,word1,cap,isEng=True):
         # The bktree-based suggestion function
-
-        distances = self.dictionary.find(word1,cap)
+        if not isEng:
+            distances = self.altdictionary.find(word1, cap)
+        else:
+            distances = self.dictionary.find(word1,cap)
 
         return distances
         
