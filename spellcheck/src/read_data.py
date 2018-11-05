@@ -2,11 +2,6 @@ import pybktree
 import pickle
 import os.path
 
-spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-datapath = os.path.join(spellcheckpath,"data")
-bktreepath = os.path.join(datapath,"bktree.pkl")
-dictpath = os.path.join(datapath,"DICT.txt")
-
 def __readFilesAsList(direc):
     dictionary = []
     with open(direc) as f:
@@ -16,18 +11,18 @@ def __readFilesAsList(direc):
 def __retrieveDictionary(addr):
     return __readFilesAsList(addr)
 
-def makeEnglishDict(addr = dictpath):
+def makeEnglishDict(addr):
     return readFileAsDict2(addr)
 
-def makeBkTree(func, addr = dictpath):
+def makeBkTree(func, addr):
     return pybktree.BKTree(func, __readFilesAsList(addr))
 
-def makeBkTreeFromPkl(func, repkl, addr = bktreepath):
+def makeBkTreeFromPkl(func, repkl, lang, addr):
     if not os.path.exists(addr) or repkl:
         if not repkl:
             print("cannot detect English spellchecker file object")
         print("repickling English spellchecker object")
-        bktree = makeBkTree(func)
+        bktree = makeBkTree(func, addr)
         with open(addr, "wb") as f: 
             pickle.dump(bktree, f)
         return bktree
@@ -36,7 +31,7 @@ def makeBkTreeFromPkl(func, repkl, addr = bktreepath):
         with open(addr, "rb") as f:
             return pickle.load(f)        
 
-def makeMetaDict(addr = dictpath):
+def makeMetaDict(addr):
     return readFileAsDict(addr)
 
 def readFileAsDict2(direc):

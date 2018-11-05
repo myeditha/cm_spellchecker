@@ -6,15 +6,18 @@ from .read_data import *
 spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 datapath = os.path.join(spellcheckpath,"data")
 bktreepath = os.path.join(datapath,"bktree.pkl")
-dictpath = os.path.join(datapath,"DICT.txt")
+engdictpath = os.path.join(datapath,"DICT.txt")
 
 class Spellchecker(): 
 
-    def __init__(self, repklEng=bktreepath, aggressiveness=1, outputType="firstOf", altPath=None):
+    def __init__(self, langTag, repklEng=bktreepath, aggressiveness=1, outputType="firstOf", altPath=None, dictDoc=None):
         self.dmeta = metaphone.dm
-        self.en = makeEnglishDict()
-        self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
-        self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng)
+        self.en = makeEnglishDict(dictpath)
+        self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng, "eng", engdictpath)
+        if(dictDoc):
+            self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng, langTag, )
+        else:
+            self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, repklEng, langTag)
         self.metaphones = makeMetaDict(os.path.join(datapath,"telugurawaug.txt"))
 
     def correctSentence(self, sentence):
