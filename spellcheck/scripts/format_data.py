@@ -115,4 +115,16 @@ def main():
         #     f.write("\n").join(list(map(lambda x: UnicodeIndicTransliterator.transliterate(x,"eng","tel"), nlines)))
 
 
-main()
+def filterOutMeta():
+    newlines = []
+
+    with open("../data/telugurawaug.txt") as f:
+        lines = f.readlines()
+        for line in lines:
+            line = line[:-1].split(' ')
+            newlines.append(line[1])
+    
+    with open("../data/teluguDict.txt", "w") as f:
+        f.write("\n".join(list(newlines)))
+
+main()  
