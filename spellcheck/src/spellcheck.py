@@ -30,15 +30,15 @@ class Spellchecker():
             if tag=="English":
                 newword = self.levenshteinEditSuggestionCap(myword, 1)[0][1]
             else:
-                print(myword)
+                # print(myword)
                 if(len(myword) < 4):
                     suggestions = self.levenshteinEditSuggestionCap(myword, 2, False)
-                    print(suggestions)
+                    # print(suggestions)
                     if(suggestions):
                         newword = suggestions[0][1]
                     else:
                         newword = myword
-                    print(newword)
+                    # print(newword)
                 else:
                     newword = self.getMetaphone(myword)
             newsentence.append(newword)

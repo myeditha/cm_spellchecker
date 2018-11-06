@@ -81,13 +81,14 @@ def create_soundex_dict(nlines):
             else:
                 mydict[sound][wordkey] += 1
 
-    newdict = dict()
+    newdict = list()
 
     for key, value in mydict.items():
         n = max(value.items(), key=operator.itemgetter(1))[0]
-        newdict[key] = n
-    
-    return newdict.values()
+        newdict.append(key + " " + n)
+
+    # print(newdict)
+    return newdict
 
 def readFileAsDict(direc):
     dictionary = dict()
