@@ -19,7 +19,7 @@ Options:
 
 from DataManagement import indicLangIdentifier, polyglot_SpellChecker, indic_transliterator
 from DataManagement import dumbFilterCollection
-from cm_spellchecker import Spellchecker
+from spellcheck import Spellchecker
 import codecs
 # from docopt import docopt
 import os
