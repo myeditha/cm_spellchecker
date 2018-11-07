@@ -6,6 +6,7 @@ Hi! This is a repository for implementing spellchecking on code-mixed text, curr
 After cloning, install the requirements by:
 
 `pip install -r requirements.txt`
+(Make sure you have got sufficient permissions, otherwise use '--user' option)
 
 - [pybktree](https://pypi.org/project/pybktree/)
 - [indictrans](https://pypi.org/project/indic-transliteration/)
