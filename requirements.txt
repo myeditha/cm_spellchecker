@@ -1,5 +1,4 @@
 pybktree==1.1
-indic-transliteration==1.7.6
 emoji==0.5.1
 openapi-codec==1.3.2
 beautifulsoup4==4.6.3

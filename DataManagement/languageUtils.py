@@ -4,8 +4,8 @@ from DataManagement.constants import ANNOT_REGEX, LITCM_CODE_TO_UNIV_CODE
 import codecs
 import os
 import json
-from indic_transliteration import sanscript
-from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
+# from indic_transliteration import sanscript
+# from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 
 __language_map__ = {}
 
@@ -45,21 +45,21 @@ def languageLoader(languageConfigFile):
             langObject = type(langName, (object,), langProperties)
             __language_map__[langName] = langObject
 
-def indic_transliterator(text, src_lang, tgt_lang):
-    indic_transliterator_lang_codes = {"english":sanscript.ITRANS,
-                                       "hindi":sanscript.DEVANAGARI,
-                                       "telugu":sanscript.TELUGU,
-                                       "bengali":sanscript.BENGALI,
-                                       "gujarati":sanscript.GUJARATI,
-                                       "gurumukhi":sanscript.GURMUKHI,
-                                       "kannada":sanscript.KANNADA,
-                                       "malayalam":sanscript.MALAYALAM,
-                                       "tamil":sanscript.TAMIL
-                                       }
-    if not src_lang in indic_transliterator_lang_codes.keys() or \
-            not tgt_lang in indic_transliterator_lang_codes.keys():
-        raise KeyError("Unknown language code. Got source:'{}',target:'{}' ".format(src_lang,tgt_lang))
-    return transliterate(text, indic_transliterator_lang_codes[src_lang], indic_transliterator_lang_codes[tgt_lang])
+# def indic_transliterator(text, src_lang, tgt_lang):
+#     indic_transliterator_lang_codes = {"english":sanscript.ITRANS,
+#                                        "hindi":sanscript.DEVANAGARI,
+#                                        "telugu":sanscript.TELUGU,
+#                                        "bengali":sanscript.BENGALI,
+#                                        "gujarati":sanscript.GUJARATI,
+#                                        "gurumukhi":sanscript.GURMUKHI,
+#                                        "kannada":sanscript.KANNADA,
+#                                        "malayalam":sanscript.MALAYALAM,
+#                                        "tamil":sanscript.TAMIL
+#                                        }
+#     if not src_lang in indic_transliterator_lang_codes.keys() or \
+#             not tgt_lang in indic_transliterator_lang_codes.keys():
+#         raise KeyError("Unknown language code. Got source:'{}',target:'{}' ".format(src_lang,tgt_lang))
+#     return transliterate(text, indic_transliterator_lang_codes[src_lang], indic_transliterator_lang_codes[tgt_lang])
 
 class languageIdentifier(object):
     def __init__(self, languageSet):
