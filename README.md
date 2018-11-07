@@ -3,9 +3,15 @@
 Hi! This is a repository for implementing spellchecking on code-mixed text, currently for Hindi and Telugu (but ideally more in the future!). This repository is part of a larger group of projects aiming to implement text normalization tools for researchers working with code-mixed text in indic languages.
 
 ## Requirements
+After cloning, install the requirements by:
 
-- [pyenchant](https://github.com/rfk/pyenchant)
-- [fuzzy](https://pypi.org/project/Fuzzy/)
+`pip install -r requirements.txt`
+
+- [pybktree](https://pypi.org/project/pybktree/)
+- [indictrans](https://pypi.org/project/indic-transliteration/)
+- [codecs](https://pypi.org/project/openapi-codec/)
+- [bs4](https://pypi.org/project/beautifulsoup4/)
+- [metaphone](https://pypi.org/project/Metaphone/)
 
 ## Setup
 
@@ -14,6 +20,10 @@ Project files are contained in the `spellcheck/` directory. The README file and 
 All source files are contained with the `src/` directory. Currently, the main spellchecker module (the vast majority of which still needs to be written) is wrapped in the `Spellchecker` class.
 
 All data is read in through `read_data.py` and all large files are in the `data/` directory. If this gets too big down the line, should most likely move to a new data repository.
+
+`DataManagement`: This folder contains the various abstractions that make up the pipeline. When you add a new implementation of some tool for the pipeline, make sure that it is always along the lines of an abstraction contained in this folder. Feel free to add new abstractions into this folder. Some of the abstractions are as follows:  
+`languageUtils.py`: Classes for Langauge Specific Identifiers, Lexicons and SpellCheckers.  
+`dataloader.py`: Classes for loading a corpus - mono-lingual/multi-lingual.  
 
 Testing information and setup is in the `tests/` directory. Currently, this is how you would check functionality of the `Spellchecker` class (see the next section).
 
