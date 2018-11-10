@@ -9,7 +9,7 @@ engdictpath = os.path.join(datapath,"DICT.txt")
 
 class Spellchecker(): 
 
-    def __init__(self, langTag, repklEng, repklAlt, aggressiveness=1, outputType="firstOf", altPath=None, dictDoc=None):
+    def __init__(self, langTag, repklEng=False, repklAlt=False, aggressiveness=1, outputType="firstOf", altPath=None, dictDoc=None):
         spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
         datapath = os.path.join(spellcheckpath,"data")
         engbktreepath = os.path.join(datapath,"engbktree.pkl")
