@@ -1,6 +1,5 @@
 import json
 import string
-import fuzzy
 import metaphone
 import re
 import operator

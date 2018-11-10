@@ -1,7 +1,7 @@
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 import urllib.request
 import ssl
-from indictrans import Transliterator
+# from indictrans import Transliterator
 
 def get_soup(link):
     context = ssl._create_unverified_context()
