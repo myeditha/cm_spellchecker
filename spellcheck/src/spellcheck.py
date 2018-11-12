@@ -27,9 +27,10 @@ class Spellchecker():
             wordplustag = word.split("\\")
             myword = wordplustag[0]
             tag = wordplustag[1]
+            newword = myword
             if tag=="English":
                 newword = self.levenshteinEditSuggestionCap(myword, 1)[0][1]
-            elif tag != "Other":
+            elif tag!="Other":
                 # print(myword)
                 if(len(myword) < 4):
                     suggestions = self.levenshteinEditSuggestionCap(myword, 2, False)
