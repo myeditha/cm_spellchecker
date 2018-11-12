@@ -39,7 +39,9 @@ This may be streamlined down the line with a helpful command, but for right now 
 
 ## Commands
 
-Command: `python main.py test.txt -A 1 -outputType firstOf -langTag tel`
+Normalization: `python normalize.py "source_hinglish.txt" "source_hinglish_lang.txt" "eng,hin" --do_repickle`
+
+Spell check Command: `python main.py test.txt -A 1 -outputType firstOf -langTag tel`
 
 If you want to know more about each option, just do `python main.py -h`
 
