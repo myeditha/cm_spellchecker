@@ -44,6 +44,7 @@ class dumbFilterCollection(filterCollection):
         clean_text = []
         for word in text.split():
           clean_text.append("".join(char for char in word if not unicodedata.category(char).startswith('P')))
+        return " ".join(clean_text)
 
     def correctRepeatStr(self, text):
         text = re.sub(REPEAT_STR_3_OR_MORE, r"\1", text)
