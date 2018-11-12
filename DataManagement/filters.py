@@ -2,7 +2,6 @@
 import re, string, unicodedata
 import os
 import codecs
-import emoji
 
 from .constants import URL_REGEX, MENTION_REGEX, REPEAT_3_OR_MORE, REPEAT_STR_3_OR_MORE
 from bs4 import BeautifulSoup
