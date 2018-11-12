@@ -29,7 +29,7 @@ class Spellchecker():
             tag = wordplustag[1]
             if tag=="English":
                 newword = self.levenshteinEditSuggestionCap(myword, 1)[0][1]
-            else:
+            elif tag != "Other":
                 # print(myword)
                 if(len(myword) < 4):
                     suggestions = self.levenshteinEditSuggestionCap(myword, 2, False)
