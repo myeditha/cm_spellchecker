@@ -37,8 +37,6 @@ class Spellchecker():
                     # print(suggestions)
                     if(suggestions):
                         newword = suggestions[0][1]
-                    else:
-                        newword = myword
                     # print(newword)
                 else:
                     newword = self.getMetaphone(myword)
