@@ -3,6 +3,7 @@ import re, string, unicodedata
 import os
 import codecs
 import emoji
+import re
 
 from .constants import URL_REGEX, MENTION_REGEX, REPEAT_3_OR_MORE, REPEAT_STR_3_OR_MORE
 from bs4 import BeautifulSoup
@@ -21,7 +22,8 @@ class dumbFilterCollection(filterCollection):
     def __init__(self):
         super().__init__()
         self.filters = [self.replaceUrl, self.replaceMention,
-                        self.correctRepeatChars, self.correctRepeatStr, self.strip_unicode_punctuations]
+                        self.correctRepeatChars, self.correctRepeatStr, self.strip_unicode_punctuations,
+                        self.split_camel_case]
 
     # some custom filters I was trying out.
     def stripHtml(self, text):
@@ -44,6 +46,11 @@ class dumbFilterCollection(filterCollection):
         clean_text = []
         for word in text.split():
           clean_text.append("".join(char for char in word if not unicodedata.category(char).startswith('P')))
+        return " ".join(clean_text)
+
+    def split_camel_case(self, text):
+        matches = re.finditer('.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)', text)
+        return " ".join([m.group(0) for m in matches])
 
     def correctRepeatStr(self, text):
         text = re.sub(REPEAT_STR_3_OR_MORE, r"\1", text)
@@ -61,3 +68,10 @@ class dumbFilterCollection(filterCollection):
         return line
 
 
+# ****** Sample Test ********
+# def sample_camel_case(text):
+#     matches = re.finditer('.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)', text)
+#     return " ".join([m.group(0) for m in matches])
+#
+# if __name__== "__main__":
+#     print(sample_camel_case("how are youDoing?"))
