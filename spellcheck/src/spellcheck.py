@@ -1,6 +1,7 @@
 import metaphone
 import pybktree
 from .read_data import *
+from symspellpy.symspellpy import SymSpell, Verbosity
 
 # This is for initial commits and organization. This will be refactored.
 
@@ -12,12 +13,15 @@ class Spellchecker():
     def __init__(self, langTag, repklEng=False, repklAlt=False, aggressiveness=1, outputType="firstOf", altPath=None, dictDoc=None):
         spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
         datapath = os.path.join(spellcheckpath,"data")
-        engbktreepath = os.path.join(datapath,"engbktree.pkl")
+        # engbktreepath = os.path.join(datapath,"engbktree.pkl")
         altbktreepath = os.path.join(datapath, langTag + "bktree.pkl")
         self.dmeta = metaphone.dm
-        self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, "eng", engdictpath, engbktreepath, repklEng)
+        # self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, "eng", engdictpath, engbktreepath, repklEng)
         if(dictDoc):
             self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, langTag, dictDoc, altbktreepath, repklAlt)
+        self.dictionary = getSymspellDict(os.path.join(datapath,"freqdict.txt"))
+        # if(dictDoc):
+        #     self.altdictionary = getSymspellDict(dictDoc)
         self.metaphones = makeMetaDict(dictDoc)
 
     def correctSentence(self, sentence):
@@ -29,14 +33,15 @@ class Spellchecker():
             tag = wordplustag[1]
             newword = myword
             if tag=="English":
-                newword = self.levenshteinEditSuggestionCap(myword, 1)[0][1]
+                newword = self.levenshteinEditSuggestionCapSym(myword, 1)[0].term
+                print(newword)
             elif tag!="Other":
                 # print(myword)
                 if(len(myword) < 4):
-                    suggestions = self.levenshteinEditSuggestionCap(myword, 2, False)
+                    suggestions = self.levenshteinEditSuggestionCap(myword, 2, False)[0][1]
                     # print(suggestions)
                     if(suggestions):
-                        newword = suggestions[0][1]
+                        newword = suggestions
                     # print(newword)
                 else:
                     newword = self.getMetaphone(myword)
@@ -101,6 +106,14 @@ class Spellchecker():
 
         return minWords
 
+    def levenshteinEditSuggestionCapSym(self,word1,cap,isEng=True):
+        # The symspell-based suggestion function
+        if not isEng:
+            distances = list(self.altdictionary.lookup(word1, Verbosity.CLOSEST, cap))
+        else:
+            distances = list(self.dictionary.lookup(word1, Verbosity.CLOSEST, cap))
+
+        return distances
 
     def levenshteinEditSuggestionCap(self,word1,cap,isEng=True):
         # The bktree-based suggestion function

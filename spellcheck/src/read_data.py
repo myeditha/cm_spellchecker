@@ -3,6 +3,7 @@ import pickle
 import os.path
 import metaphone
 import operator
+from symspellpy.symspellpy import SymSpell, Verbosity
 
 spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 datapath = os.path.join(spellcheckpath,"data")
@@ -98,4 +99,14 @@ def readFileAsDict(direc):
             line = line[:-1].split(' ')
             dictionary[line[0]] = line[1]
     return dictionary
+
+def getSymspellDict(direc):
+    print("loading symspell object")
+    sym_spell = SymSpell(83000, 2, 7)
+    if not sym_spell.load_dictionary(direc, 0, 1):
+        print("Dictionary file not found")
+
+    return sym_spell
+
+    
 
