@@ -32,16 +32,16 @@ class Spellchecker():
             myword = wordplustag[0]
             tag = wordplustag[1]
             newword = myword
-            if tag=="English":
+            if tag=="eng":
                 newword = self.levenshteinEditSuggestionCapSym(myword, 1)[0].term
                 print(newword)
-            elif tag!="Other":
+            elif tag!="O":
                 # print(myword)
                 if(len(myword) < 4):
-                    suggestions = self.levenshteinEditSuggestionCap(myword, 2, False)[0][1]
+                    suggestions = self.levenshteinEditSuggestionCap(myword, 2, False)
                     # print(suggestions)
                     if(suggestions):
-                        newword = suggestions
+                        newword = suggestions[0][1]
                     # print(newword)
                 else:
                     newword = self.getMetaphone(myword)
