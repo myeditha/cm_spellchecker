@@ -36,10 +36,7 @@ def normalize_codemixed_text(source_file, language_file, lang_list, to_pickle=Fa
     :param lang_list: list of languages with which to condition the language identifier
     :return: text cleaned from #tags, RT, transliterated and spell-corrrected
     '''
-    dumbFilter = dumbFilterCollection()
-
-    # loads a language identifier
-    lid = indicLangIdentifier(lang_list)
+    # dumbFilter = dumbFilterCollection()
 
     head, inpFileName = os.path.split(source_file)
     fileName, ext = inpFileName.split(".")
@@ -61,7 +58,7 @@ def normalize_codemixed_text(source_file, language_file, lang_list, to_pickle=Fa
         with codecs.open(outFile, 'w', encoding='utf-8') as fw:
             for line,lids in zip(f_src, f_lang):
                 # 1. Apply basic filtering
-                line = dumbFilter.filterLine(line)
+                # line = dumbFilter.filterLine(line)
                 line = line.split()
                 lids = lids.split()
                 # 2. Zip together the Language Tag and the words
