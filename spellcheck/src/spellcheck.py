@@ -10,19 +10,21 @@ engdictpath = os.path.join(datapath,"DICT.txt")
 
 class Spellchecker(): 
 
-    def __init__(self, langTag, repklEng=False, repklAlt=False, aggressiveness=1, outputType="firstOf", altPath=None, dictDoc=None):
+    def __init__(self, mixedLang, majorLang="eng", repklEng=False, repklAlt=False, aggressiveness=1, outputType="firstOf", altPath=None, freqDocMajor=os.path.join(datapath,"freqdict.txt"), dictDocMixed=None):
         spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
         datapath = os.path.join(spellcheckpath,"data")
         # engbktreepath = os.path.join(datapath,"engbktree.pkl")
-        altbktreepath = os.path.join(datapath, langTag + "bktree.pkl")
+        altbktreepath = os.path.join(datapath, mixedLang + "bktree.pkl")
+        self.mixedLang = mixedLang
+        self.majorLang = majorLang
         self.dmeta = metaphone.dm
         # self.dictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, "eng", engdictpath, engbktreepath, repklEng)
-        if(dictDoc):
-            self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, langTag, dictDoc, altbktreepath, repklAlt)
-        self.dictionary = getSymspellDict(os.path.join(datapath,"freqdict.txt"))
+        if(dictDocMixed):
+            self.altdictionary = makeBkTreeFromPkl(self.calcLevenshteinDist, mixedLang, dictDocMixed, altbktreepath, repklAlt)
+        self.dictionary = getSymspellDict(freqDocMajor)
         # if(dictDoc):
         #     self.altdictionary = getSymspellDict(dictDoc)
-        self.metaphones = makeMetaDict(dictDoc)
+        self.metaphones = makeMetaDict(dictDocMixed)
 
     def correctSentence(self, sentence):
         wordarr = sentence.split(" ")
@@ -30,11 +32,11 @@ class Spellchecker():
         for word in wordarr:
             wordplustag = word.split("\\")
             myword = wordplustag[0]
+            isUpper = myword[0].isupper()
             tag = wordplustag[1]
             newword = myword
-            if tag=="eng":
+            if tag==self.majorLang:
                 newword = self.levenshteinEditSuggestionCapSym(myword, 1)[0].term
-                print(newword)
             elif tag!="O":
                 # print(myword)
                 if(len(myword) < 4):
@@ -45,6 +47,10 @@ class Spellchecker():
                     # print(newword)
                 else:
                     newword = self.getMetaphone(myword)
+
+            if(isUpper):
+                newword = newword[0].upper() + newword[1:]
+
             newsentence.append(newword)
         return ' '.join(newsentence)
 

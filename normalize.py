@@ -28,6 +28,7 @@ import argparse
 spellcheckPath = os.path.abspath(os.path.join(os.path.dirname(__file__),"spellcheck"))
 datapath = os.path.join(spellcheckPath,"data")
 hinDictPath = os.path.join(datapath,"hindi_trans.txt")
+engDictPath = os.path.join(datapath,"freqdict.txt")
 
 def normalize_codemixed_text(source_file, language_file, lang_list, to_pickle=False):
     '''
@@ -46,8 +47,9 @@ def normalize_codemixed_text(source_file, language_file, lang_list, to_pickle=Fa
     mixed_lang = lang_list[1]
     repkl_Major = repkl_Alt = to_pickle
 
-    spellChecker = Spellchecker(langTag=mixed_lang,repklEng=repkl_Major, repklAlt=repkl_Alt,aggressiveness=1, outputType="firstOf", altPath=None,
-                                dictDoc=hinDictPath)
+    spellChecker = Spellchecker(mixedLang=mixed_lang, majorLang=major_lang, repklEng=repkl_Major, repklAlt=repkl_Alt,aggressiveness=1, outputType="firstOf", altPath=None,
+                                freqDocMajor=engDictPath, 
+                                dictDocMixed=hinDictPath)
 
     # if the lines within this file are already language annotated
     isLangTagged = True
