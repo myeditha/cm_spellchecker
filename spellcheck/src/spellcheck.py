@@ -37,11 +37,11 @@ class Spellchecker():
             newword = myword
             if tag==self.majorLang:
                 newword = self.levenshteinEditSuggestionCapSym(myword, 1)[0].term
-            elif tag!="O":
+            elif tag==self.mixedLang:
                 # print(myword)
                 if(len(myword) < 4):
                     suggestions = self.levenshteinEditSuggestionCap(myword, 2, False)
-                    # print(suggestions)
+                    print(suggestions)
                     if(suggestions):
                         newword = suggestions[0][1]
                     # print(newword)

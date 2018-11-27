@@ -52,3 +52,9 @@ This project is still in progress! Check back for updates during the coming mont
 ## Credits
 
 Currently being worked on by Sumeet Singh (Current MLT, Carnegie Mellon) and Meheresh Yeditha (Current BS CS, Carnegie Mellon).
+
+## Some Resources
+
+- [Indian Language Corpus Repository](https://ltrc.iiit.ac.in/showfile.php?filename=ltrc/internal/nlp/corpus/index.html)
+
+- [General Language Corpus Repository] (http://wortschatz.uni-leipzig.de/en/download/)
