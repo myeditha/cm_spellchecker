@@ -20,7 +20,7 @@ def levenshtein(word1,word2):
     for i in range(0,len(word2)+1):
         v0[i] = i;
 
-    for i in range(0,len(word1)): 
+    for i in range(0,len(word1)):
         v1[0] = i + 1
 
         for j in range(0,len(word2)):
@@ -33,7 +33,6 @@ def levenshtein(word1,word2):
                 substitutioncost = v0[j]
 
             v1[j + 1] = min([deletioncost, insertioncost, substitutioncost])
-    
 
         for j in range(0,len(v0)):
             v0[j] = v1[j]
@@ -44,7 +43,7 @@ def main():
     print("making tree")
     bktree = makeBkTree(levenshtein)
     print("creating pickle object")
-    with open("../data/bktree.pkl", "wb") as f: 
+    with open("../data/bktree.pkl", "wb") as f:
         pickle.dump(bktree, f)
 
 main()

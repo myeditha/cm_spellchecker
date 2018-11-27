@@ -61,20 +61,18 @@ def main():
     with open(rawoutputfile_s, "w") as f:
         f.write("\n".join(res))
 
-    # res1 = scrape_hindi()
+    res1 = scrape_hindi()
 
-    # with open(rawoutputfile_h, "w") as f :
-    #     f.write("\n".join([x[0] for x in res1]))
-    # with open(transoutputfile_h, "w") as f:
-    #     f.write("\n".join([x[1] for x in res1]))
+    with open(rawoutputfile_h, "w") as f :
+        f.write("\n".join([x[0] for x in res1]))
+    with open(transoutputfile_h, "w") as f:
+        f.write("\n".join([x[1] for x in res1]))
 
-    # res2 = scrape_telugu()
+    res2 = scrape_telugu()
 
-    # with open(rawoutputfile_t, "w") as f :
-    #     f.write("\n".join([x[0] for x in res2]))
-    # with open(transoutputfile_t, "w") as f:
-    #     f.write("\n".join([x[1] for x in res2]))
-
+    with open(rawoutputfile_t, "w") as f :
+        f.write("\n".join([x[0] for x in res2]))
+    with open(transoutputfile_t, "w") as f:
+        f.write("\n".join([x[1] for x in res2]))
 
 main()
-

@@ -26,13 +26,13 @@ def testWrapper():
 	# ... Or use a predicate function to determine if you pass the test.
 
 	def levenshteinSuggestionTests():
-		# WARNING: These tests are quite slow. 
+		# WARNING: These tests are quite slow.
 		tests = []
 		tests.append(("ist", lambda l: "is" in l))
 		tests.append(("hlelo", lambda l: "hello" in l))
 		return {
 			"function": spellchecker.levenshteinEditSuggestion,
-			"tests": tests, 
+			"tests": tests,
 			"desc": "edit suggestions"
 		}
 

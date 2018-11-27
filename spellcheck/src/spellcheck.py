@@ -58,7 +58,7 @@ class Spellchecker():
         for i in range(0,len(word2)+1):
             v0[i] = i
 
-        for i in range(0,len(word1)): 
+        for i in range(0,len(word1)):
             v1[0] = i + 1
 
             for j in range(0,len(word2)):
@@ -88,10 +88,10 @@ class Spellchecker():
         
 
     def levenshteinEditSuggestion(self,word1):
-        # The naive implementation - using levenshtein distance to 
+        # The naive implementation - using levenshtein distance to
         # compare to every word in dictionary
 
-        dictionary = makeEnglishDict()
+        dictionary = makeEnglishDict(os.path.join(datapath,"DICT.txt"))
         minDist = len(word1) + 1
         minWords = []
 

@@ -23,7 +23,6 @@ from spellcheck import Spellchecker
 import codecs
 # from docopt import docopt
 import os
-from os import path
 import argparse
 
 spellcheckPath = os.path.abspath(os.path.join(os.path.dirname(__file__),"spellcheck"))

@@ -3,7 +3,7 @@ import pickle
 import os.path
 import metaphone
 import operator
-from symspellpy.symspellpy import SymSpell, Verbosity
+from symspellpy.symspellpy import SymSpell
 
 spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 datapath = os.path.join(spellcheckpath,"data")
@@ -29,7 +29,7 @@ def makeBkTreeFromPkl(func, lang, addr, bktreepath, repkl=False):
             print("cannot detect " + lang + " spellchecker file object")
         print("repickling " + lang + " spellchecker object")
         bktree = makeBkTree(func, addr)
-        with open(bktreepath, "wb") as f: 
+        with open(bktreepath, "wb") as f:
             pickle.dump(bktree, f)
         return bktree
     else:
@@ -107,6 +107,3 @@ def getSymspellDict(direc):
         print("Dictionary file not found")
 
     return sym_spell
-
-    
-

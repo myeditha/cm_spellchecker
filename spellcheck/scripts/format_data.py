@@ -1,10 +1,7 @@
 import json
-import string
 import metaphone
 import re
 import operator
-import random
-from functools import reduce
 
 def read_sm():
     print("loading social media corpus")
@@ -24,8 +21,8 @@ def cleanse(stri, smwords, engdict):
     regex = b"[\w']+"
     textarr = re.findall(regex, stri)
     words = []
-    for i in range(0,len(textarr)):
-        word = textarr[i].lower()
+    for word in textarr:
+        word = word.lower()
         word2 = word.decode('utf-8')
         if word == b"" or b".com" in word or any(char.isdigit() for char in word2) or (word2 in smwords) or b"_" in word:
             continue
@@ -88,14 +85,12 @@ def grab_max_lines(mydict):
 
 def main():
     filename = "../data/teluguraw.txt"
-    filename2 = "../data/telugu2backtrans.txt"
     nlines = []
     smwords = read_sm()
     with open("../data/outfile4.json") as f:
         print("reading file")
         lines = f.readlines()
         mapped = []
-        counter = 0
         mapped = cleanse_string(lines, smwords)
         # mapped = reduce(operator.add, mapped)
         # print(mapped)
@@ -112,7 +107,6 @@ def main():
         
         # with open(filename2, 'w') as f:
         #     f.write("\n").join(list(map(lambda x: UnicodeIndicTransliterator.transliterate(x,"eng","tel"), nlines)))
-
 
 def filterOutMeta():
     newlines = []

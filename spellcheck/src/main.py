@@ -1,4 +1,3 @@
-import sys
 import argparse
 from .spellcheck import *
 
@@ -29,10 +28,3 @@ def spellcheckEntry():
 		for line in lines:
 			line = line[:-1]
 			print(spellchecker.correctSentence(line))
-		
-	
-
-
-
-
-

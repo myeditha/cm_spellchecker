@@ -32,7 +32,7 @@ def testFunction(test, func, num, verbose):
 			return True
 
 def runTests():
-	verbose = False 
+	verbose = False
 	if "-V" in sys.argv:
 		verbose = True
 	tests = testWrapper()

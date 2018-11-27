@@ -1,10 +1,5 @@
-import json
-import string
 import metaphone
-import re
-import random
 from ..src.spellcheck import *
-from functools import reduce
 
 def main2():
     spellchecker = Spellchecker(False, 1, "f", "")
