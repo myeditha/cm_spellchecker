@@ -57,4 +57,4 @@ Currently being worked on by Sumeet Singh (Current MLT, Carnegie Mellon) and Meh
 
 - [Indian Language Corpus Repository](https://ltrc.iiit.ac.in/showfile.php?filename=ltrc/internal/nlp/corpus/index.html)
 
-- [General Language Corpus Repository] (http://wortschatz.uni-leipzig.de/en/download/)
+- [General Language Corpus Repository](http://wortschatz.uni-leipzig.de/en/download/)
