@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import metaphone
 import pybktree
 from .read_data import *
@@ -30,13 +32,18 @@ class Spellchecker():
         wordarr = sentence.split(" ")
         newsentence = []
         for word in wordarr:
-            wordplustag = word.split("\\")
+            wordplustag = word.split("$\\$")
             myword = wordplustag[0]
+            # print("Checking for upper case in {}".format(myword))
             isUpper = myword[0].isupper()
             tag = wordplustag[1]
             newword = myword
             if tag==self.majorLang:
-                newword = self.levenshteinEditSuggestionCapSym(myword, 1)[0].term
+                suggestions = self.levenshteinEditSuggestionCapSym(myword, 1)
+                if len(suggestions) > 0:
+                    newword = self.levenshteinEditSuggestionCapSym(myword, 1)[0].term
+                else:
+                    newword = self.getMetaphone(myword)
             elif tag==self.mixedLang:
                 # print(myword)
                 if(len(myword) < 4):

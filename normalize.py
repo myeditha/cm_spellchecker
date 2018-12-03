@@ -60,11 +60,11 @@ def normalize_codemixed_text(source_file, language_file, lang_list, to_pickle=Fa
             for line,lids in zip(f_src, f_lang):
                 # 1. Apply basic filtering
                 # line = dumbFilter.filterLine(line)
-                line = line.split()
-                lids = lids.split()
+                line = line.strip().split()
+                lids = lids.strip().split()
                 # 2. Zip together the Language Tag and the words
 
-                lang_tagged_line = " ".join([x+'\\'+y for x,y in zip(line,lids)])
+                lang_tagged_line = " ".join([x+'$\\$'+y for x,y in zip(line,lids)])
                 print("Line observed:{}".format(lang_tagged_line))
 
                 # spell_corrected_line = " ".join(words)

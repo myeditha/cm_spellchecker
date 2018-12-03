@@ -1,16 +1,19 @@
+# -*- coding: utf-8 -*-
+
 import pybktree
 import pickle
 import os.path
 import metaphone
 import operator
 from symspellpy.symspellpy import SymSpell
+import codecs
 
 spellcheckpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 datapath = os.path.join(spellcheckpath,"data")
 
 def __readFilesAsList(direc):
     dictionary = []
-    with open(direc) as f:
+    with codecs.open(direc,encoding='utf-8') as f:
         dictionary = list(map(lambda x: x.strip(), f.readlines()))
     return dictionary
 
@@ -43,11 +46,11 @@ def makeMetaDict(addr):
         return readFileAsDict(metaDictAddr)
     else:
         metawords = []
-        with open(addr, "r") as f:
+        with codecs.open(addr, "r",encoding='utf-8') as f:
             nlines = map(lambda x: x[:-1], f.readlines())
             metawords = create_soundex_dict(nlines)
 
-        with open(metaDictAddr, "w") as f:
+        with codecs.open(metaDictAddr, "w",encoding='utf-8') as f:
             f.write('\n'.join(metawords))
 
         return metawords
@@ -55,7 +58,7 @@ def makeMetaDict(addr):
 
 def readFileAsDict2(direc):
     dictionary = dict()
-    with open(direc) as f:
+    with codecs.open(direc,encoding='utf-8') as f:
         lines = f.readlines()
         for line in lines:
             line = line[:-1].lower()
@@ -93,7 +96,7 @@ def create_soundex_dict(nlines):
 
 def readFileAsDict(direc):
     dictionary = dict()
-    with open(direc) as f:
+    with codecs.open(direc,encoding='utf-8') as f:
         lines = f.readlines()
         for line in lines:
             line = line[:-1].split(' ')
