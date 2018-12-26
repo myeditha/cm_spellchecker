@@ -1,6 +1,10 @@
+nltk==3.4
+sklearn==0.0
+datasketch==1.2.10
 pybktree==1.1
 emoji==0.5.1
 openapi-codec==1.3.2
 beautifulsoup4==4.6.3
 Metaphone==0.6
 symspellpy==6.3.2
+repoze.lru==0.7
