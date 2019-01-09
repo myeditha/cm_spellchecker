@@ -5,9 +5,9 @@ import string
 import re
 
 def cleanse(line):
-    line = ' '.join([t for t in line.split() if not t.startswith('@')])
+    line = ' '.join([t for t in line.split() if not t.startswith('@') and not t.startswith('http')])
     # line = line.translate(str.maketrans(string.punctuation, ' '*len(string.punctuation)))
-    line = s = re.sub('([.,!?()])', r' \1 ', line)
+    line = re.sub('([.,!?()])', r' \1 ', line)
     line = ' '.join(map(lambda x: x.lower(), line.split()))
     return line
 
@@ -64,7 +64,7 @@ def main():
         jsons = map(lambda x: json.loads(x), lines)
         textlines = list(map(lambda x: x["content"], jsons))
         
-        textlines = textlines[1:10]
+        textlines = textlines
         # need to tag each, pipe into separate files
 
         textlines = list(map(lambda x: cleanse(x), textlines))
