@@ -12,21 +12,25 @@ def cleanse(line):
     return line
 
 def checkformistakes(line, nline):
-    incorrect = input("enter space-separated incorrect words")
-    print("entering correction mode: enter \'skip\' to skip current word, and '\'end\' to exit correction mode")
+    incorrect = input("enter space-separated incorrect words\n")
+    print("entering correction mode: enter \'skip\' to skip current word, and \'end\' to exit correction mode")
     inclist = incorrect.split(" ")
     for inc in inclist:
         if inc in line:
             inp = input("Classify: " + inc + "\n")
+            if(inp=='skip'):
+                continue
+            elif(inp=='end'):
+                break
             nline = map(lambda x: inc + "\\" + inp if x.split('\\')[0] == inc else x, nline)
         else:
             print("word not in line; skipping")
-    
+    print("sentence: " + ' '.join(nline))
     sure = input("are you sure?\n")
     if(sure.lower()=='y' or sure.lower()=='yes'):
         return ' '.join(nline)
     else:
-        checkformistakes(line, nline)
+        return checkformistakes(line, nline)
 
 def grabclasses(line):
     nline = []
@@ -34,7 +38,7 @@ def grabclasses(line):
         print("sentence: " + line)
         wclass = input('Classify: ' + word + '\n')
         nline.append(word + "\\" + wclass)
-    print("sentence: " + nline)
+    print("sentence: " + ' '.join(nline))
     sure = input("are you sure?\n")
     if(sure.lower()=='y' or sure.lower()=='yes'):
         return ' '.join(nline)
