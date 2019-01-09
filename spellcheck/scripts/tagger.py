@@ -11,6 +11,23 @@ def cleanse(line):
     line = ' '.join(map(lambda x: x.lower(), line.split()))
     return line
 
+def checkformistakes(line, nline):
+    incorrect = input("enter space-separated incorrect words")
+    print("entering correction mode: enter \'skip\' to skip current word, and '\'end\' to exit correction mode")
+    inclist = incorrect.split(" ")
+    for inc in inclist:
+        if inc in line:
+            inp = input("Classify: " + inc + "\n")
+            nline = map(lambda x: inc + "\\" + inp if x.split('\\')[0] == inc else x, nline)
+        else:
+            print("word not in line; skipping")
+    
+    sure = input("are you sure?\n")
+    if(sure.lower()=='y' or sure.lower()=='yes'):
+        return ' '.join(nline)
+    else:
+        checkformistakes(line, nline)
+
 def grabclasses(line):
     nline = []
     for word in line.split():
@@ -22,14 +39,8 @@ def grabclasses(line):
     if(sure.lower()=='y' or sure.lower()=='yes'):
         return ' '.join(nline)
     else:
-        incorrect = input("enter space-separated incorrect words")
-        print("entering correction mode: enter \'skip\' to skip current word, and '\'end\' to exit correction mode")
-        # inclist = incorrect.split(" ")
-        # for inc in inclist:
-        #     if inc in line:
-        #         inp = input("")
-        #     else:
-        #         print("word not in line; skipping")
+        return checkformistakes(line, nline)
+
 
 
 def main():
@@ -49,6 +60,7 @@ def main():
         jsons = map(lambda x: json.loads(x), lines)
         textlines = list(map(lambda x: x["content"], jsons))
         
+        textlines = textlines[1:10]
         # need to tag each, pipe into separate files
 
         textlines = list(map(lambda x: cleanse(x), textlines))
