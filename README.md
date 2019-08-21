@@ -1,4 +1,5 @@
 # Spellchecker for code-mixed text
+![](https://github.com/myeditha/switchsand/blob/master/ProjectOutline.PNG)
 
 Hi! This is a repository for implementing spellchecking on code-mixed text, currently for Hindi and Telugu (but ideally more in the future!). This repository is part of a larger group of projects aiming to implement text normalization tools for researchers working with code-mixed text in indic languages.
 
