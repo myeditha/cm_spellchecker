@@ -1,4 +1,4 @@
-nltk==3.4
+nltk==3.4.5
 sklearn==0.0
 datasketch==1.2.10
 pybktree==1.1
